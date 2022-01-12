@@ -5,22 +5,22 @@ import { getModelToken } from '@nestjs/mongoose';
 const jwt = require('jsonwebtoken');
 
 const defaultUser = {
-  _id: "123",
-  name: "user name",
-  email: "user@email.com",
-  password: "XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg="
-}
+  _id: '123',
+  name: 'user name',
+  email: 'user@email.com',
+  password: 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
+};
 
 const authMockModel = {
   findOne: jest.fn(),
-}
+};
 
 jest.mock('crypto-js', () => {
   return {
     SHA256: jest.fn().mockReturnThis(),
     toString: jest.fn(() => defaultUser.password),
     enc: jest.fn().mockReturnThis(),
-    Base64: jest.fn().mockReturnThis()
+    Base64: jest.fn().mockReturnThis(),
   };
 });
 
@@ -32,10 +32,13 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AuthService, {
-        provide: getModelToken(Auth.name),
-        useValue: authMockModel,
-      }],
+      providers: [
+        AuthService,
+        {
+          provide: getModelToken(Auth.name),
+          useValue: authMockModel,
+        },
+      ],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
@@ -47,7 +50,7 @@ describe('AuthService', () => {
   });
 
   describe('POST login', () => {
-    const authData = { email: "email@email.com", password: "password" };
+    const authData = { email: 'email@email.com', password: 'password' };
     jwt.sign.mockImplementation(() => 'token');
 
     it('should search for the user email and password on db', async () => {
@@ -65,8 +68,12 @@ describe('AuthService', () => {
         result: {
           message: 'Success',
           token: 'token',
-          user: { name: defaultUser.name, id: defaultUser._id, email: defaultUser.email }
-        }
+          user: {
+            name: defaultUser.name,
+            id: defaultUser._id,
+            email: defaultUser.email,
+          },
+        },
       };
 
       authModel.findOne.mockImplementationOnce(() => ({
@@ -82,13 +89,13 @@ describe('AuthService', () => {
     it('should return invalid password', async () => {
       const expectedInvalid = {
         status: 401,
-        result: { message: 'Invalid password' }
+        result: { message: 'Invalid password' },
       };
 
       const userWithInvalidPassword = {
-        email: "email@email.com",
-        password: "somethingelse"
-      }
+        email: 'email@email.com',
+        password: 'somethingelse',
+      };
       authModel.findOne.mockImplementationOnce(() => ({
         exec: jest.fn().mockReturnValue(userWithInvalidPassword),
       }));
@@ -102,7 +109,7 @@ describe('AuthService', () => {
     it('should return User not found', async () => {
       const expectedNotFound = {
         status: 401,
-        result: { message: 'User not found' }
+        result: { message: 'User not found' },
       };
 
       authModel.findOne.mockImplementationOnce(() => ({

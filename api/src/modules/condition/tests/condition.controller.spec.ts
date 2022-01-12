@@ -7,9 +7,9 @@ describe('ConditionController', () => {
   let spyService: ConditionService;
 
   const condition = {
-    "ICD_10": "A64",
-    "ICD_10_Description": "Unspecified sexually transmitted disease"
-  }
+    ICD_10: 'A64',
+    ICD_10_Description: 'Unspecified sexually transmitted disease',
+  };
 
   beforeEach(async () => {
     const serviceProvider = {
@@ -35,7 +35,7 @@ describe('ConditionController', () => {
 
     it('should get all conditions', async () => {
       conditionController.index();
-      const result = await spyService.findAll()
+      const result = await spyService.findAll();
       expect(result.length).toEqual(1);
     });
   });

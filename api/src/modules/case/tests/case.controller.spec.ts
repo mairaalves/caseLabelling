@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CaseController } from '../case.controller';
-import {CaseService} from '../case.service'
+import { CaseService } from '../case.service';
 import { UpdateCaseDto } from '../dto/update-case.dto';
 
 describe('CaseController', () => {
@@ -8,24 +8,24 @@ describe('CaseController', () => {
   let spyService: CaseService;
 
   const mockCase = {
-    "_id": "001",
-    "text": "Some case text"
-  }
+    _id: '001',
+    text: 'Some case text',
+  };
 
   const resultCase = {
-    "id": "001",
-    "text": "Some case text",
-    "label": "A64",
-    "timeToLabel": "14",
-    "doctorId": "123"
-  }
+    id: '001',
+    text: 'Some case text',
+    label: 'A64',
+    timeToLabel: '14',
+    doctorId: '123',
+  };
 
   beforeEach(async () => {
     const serviceProvider = {
       provide: CaseService,
       useFactory: () => ({
         findToLabel: jest.fn(() => mockCase),
-        editCase: jest.fn(() => resultCase)
+        editCase: jest.fn(() => resultCase),
       }),
     };
 
@@ -36,7 +36,6 @@ describe('CaseController', () => {
 
     caseController = module.get<CaseController>(CaseController);
     spyService = module.get<CaseService>(CaseService);
-
   });
 
   describe('GET case', () => {
@@ -47,11 +46,11 @@ describe('CaseController', () => {
   });
 
   describe('PUT update', () => {
-    const caseId = "001"
+    const caseId = '001';
     const updateCaseDto = new UpdateCaseDto();
-    updateCaseDto.doctorId = "123";
-    updateCaseDto.label = "A64";
-    updateCaseDto.timeToLabel = "14";
+    updateCaseDto.doctorId = '123';
+    updateCaseDto.label = 'A64';
+    updateCaseDto.timeToLabel = '14';
 
     it('should call editCase', async () => {
       caseController.update(caseId, updateCaseDto);
@@ -60,14 +59,14 @@ describe('CaseController', () => {
 
     it('should label a case', async () => {
       caseController.update(caseId, updateCaseDto);
-      const result = await spyService.editCase(caseId, updateCaseDto)
+      const result = await spyService.editCase(caseId, updateCaseDto);
       const expectedLabeledCase = {
-        "id": "001",
-        "text": "Some case text",
-        "label": "A64",
-        "timeToLabel": "14",
-        "doctorId": "123"
-      }
+        id: '001',
+        text: 'Some case text',
+        label: 'A64',
+        timeToLabel: '14',
+        doctorId: '123',
+      };
       expect(result).toEqual(expectedLabeledCase);
     });
   });

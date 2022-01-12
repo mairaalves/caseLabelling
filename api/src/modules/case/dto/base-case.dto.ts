@@ -1,3 +1,3 @@
 export class BaseCaseDto {
-  caseId: string
+  caseId: string;
 }

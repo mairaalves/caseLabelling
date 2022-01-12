@@ -3,10 +3,10 @@ import { ConditionService } from './condition.service';
 
 @Controller('condition')
 export class ConditionController {
-    constructor(private readonly service: ConditionService) {}
+  constructor(private readonly service: ConditionService) {}
 
-    @Get()
-    async index() {
-        return await this.service.findAll();
-    }
+  @Get()
+  async index() {
+    return await this.service.findAll();
+  }
 }

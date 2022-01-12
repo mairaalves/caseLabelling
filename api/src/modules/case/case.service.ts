@@ -6,13 +6,20 @@ import { Case, CaseDocument } from './schemas/case.schema';
 
 @Injectable()
 export class CaseService {
-	constructor(@InjectModel(Case.name) private readonly model: Model<CaseDocument>) {}
-		
-	async findToLabel(): Promise<Case> {
-    return await this.model.findOne({label: {$exists: false}}).exec() || new Case();
+  constructor(
+    @InjectModel(Case.name) private readonly model: Model<CaseDocument>,
+  ) {}
+
+  async findToLabel(): Promise<Case> {
+    return (
+      (await this.model.findOne({ label: { $exists: false } }).exec()) ||
+      new Case()
+    );
   }
 
   async editCase(caseId: string, updateCaseDto: UpdateCaseDto): Promise<Case> {
-    return await this.model.findByIdAndUpdate(caseId, updateCaseDto, { new: true });
+    return await this.model.findByIdAndUpdate(caseId, updateCaseDto, {
+      new: true,
+    });
   }
 }

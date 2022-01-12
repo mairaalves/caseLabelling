@@ -5,8 +5,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Condition, ConditionSchema } from './schemas/condition.schemas';
 
 @Module({
-    providers: [ConditionService],
-    controllers: [ConditionController],
-    imports: [MongooseModule.forFeature([{ name: Condition.name, schema: ConditionSchema }])]
+  providers: [ConditionService],
+  controllers: [ConditionController],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Condition.name, schema: ConditionSchema },
+    ]),
+  ],
 })
 export class ConditionModule {}

@@ -5,10 +5,10 @@ class ConditionServiceMock {
   findAll() {
     return [
       {
-        "ICD_10": "A64",
-        "ICD_10_Description": "Unspecified sexually transmitted disease"
-      }
-    ]
+        ICD_10: 'A64',
+        ICD_10_Description: 'Unspecified sexually transmitted disease',
+      },
+    ];
   }
 }
 
@@ -32,8 +32,8 @@ describe('ConditionService', () => {
   });
 
   it('should get all conditions', async () => {
-    const expectedConditionICD_10 = "A64";
+    const expectedConditionICD_10 = 'A64';
     const result = await service.findAll();
-    expect(expectedConditionICD_10).toEqual(result[0]["ICD_10"]);
+    expect(expectedConditionICD_10).toEqual(result[0]['ICD_10']);
   });
 });

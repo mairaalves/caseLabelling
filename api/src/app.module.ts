@@ -10,7 +10,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 const dbUrl = `mongodb://${process.env.DATA_BASE}:${process.env.MONGO_DB_PORT}/`;
 
 @Module({
-  imports: [CaseModule, ConditionModule, AuthModule, MongooseModule.forRoot(dbUrl)],
+  imports: [
+    CaseModule,
+    ConditionModule,
+    AuthModule,
+    MongooseModule.forRoot(dbUrl),
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

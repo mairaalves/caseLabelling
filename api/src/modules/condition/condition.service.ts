@@ -5,9 +5,12 @@ import { Condition, ConditionDocument } from './schemas/condition.schemas';
 
 @Injectable()
 export class ConditionService {
-	constructor(@InjectModel(Condition.name) private readonly model: Model<ConditionDocument>) {}
-	
-	async findAll(): Promise<Condition[]> {
+  constructor(
+    @InjectModel(Condition.name)
+    private readonly model: Model<ConditionDocument>,
+  ) {}
+
+  async findAll(): Promise<Condition[]> {
     return await this.model.find().exec();
-	}
+  }
 }
