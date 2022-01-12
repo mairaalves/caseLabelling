@@ -1,0 +1,22 @@
+version: '3'
+services:
+  case_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      DATA_BASE: mongo
+      MONGO_DB_PORT: 27017
+      TOKEN_KEY: 86D3C72215A03ABB189F367AA758054B
+    depends_on:
+      - mongo
+    volumes:
+      - ".:/src/case_api"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
