@@ -6,18 +6,12 @@ import './index.css';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-ReactDOM.render( <
-    BrowserRouter >
-    <
-    Routes >
-    <
-    Route exact path = "/"
-    element = { < Login / > }
-    /> <
-    Route exact path = "/home"
-    element = { < Home / > }
-    /> <
-    / Routes> <
-    / BrowserRouter>,
-    document.getElementById('root')
+ReactDOM.render(
+	<BrowserRouter>
+		<Routes>
+			<Route exact path="/" element={< Login />} />
+			<Route exact path="/home" element={< Home />} />
+		</ Routes>
+	</ BrowserRouter>,
+	document.getElementById('root')
 );
